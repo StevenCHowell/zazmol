@@ -334,6 +334,8 @@ class Calculate(object):
             order = uk.argsort()
             uk = uk[order]
             ak = ak[order]
+            if numpy.allclose(numpy.cross(ak[0], ak[1]), -1 * ak[2]):
+                ak[2] = -ak[2]  # force right-hand systems
 
         operate.Move.translate(self, frame, com, point=True)
 
