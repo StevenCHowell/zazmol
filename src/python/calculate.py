@@ -331,11 +331,12 @@ class Calculate(object):
             I = None
         else:
             uk, ak = numpy.linalg.eig(I)
+
             order = uk.argsort()
             uk = uk[order]
-            ak = ak[order]
-            if numpy.allclose(numpy.cross(ak[0], ak[1]), -1 * ak[2]):
-                ak[2] = -ak[2]  # force right-hand systems
+            ak = ak[:, order]
+            if numpy.allclose(numpy.cross(ak[:, 0], ak[:, 1]), -1 * ak[:, 2]):
+                ak[:, 2] = -ak[:, 2]  # force right-hand systems
 
         operate.Move.translate(self, frame, com, point=True)
 
